@@ -15,7 +15,12 @@ import adminRoutes from './routes/admin.routes';
 const app = express();
 
 // Middleware
-app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
+app.use(cors({
+  origin: env.FRONTEND_URL
+    ? env.FRONTEND_URL.split(',').map(u => u.trim())
+    : 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json());
 
 // Health check
