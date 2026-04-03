@@ -1,0 +1,16 @@
+{
+  "name": "moneylab",
+  "private": true,
+  "scripts": {
+    "dev:api": "pnpm --filter @moneylab/api dev",
+    "dev:web": "pnpm --filter @moneylab/web dev",
+    "dev": "pnpm run --parallel dev:api dev:web",
+    "build:api": "pnpm --filter @moneylab/api build",
+    "build:web": "pnpm --filter @moneylab/web build",
+    "build": "pnpm run --parallel build:api build:web",
+    "lint": "pnpm run --parallel -r lint"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
