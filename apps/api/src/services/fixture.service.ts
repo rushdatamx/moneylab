@@ -126,11 +126,16 @@ class FixtureService {
 
     if (!homeTeam || !awayTeam) throw new NotFoundError('Equipo');
 
-    // Try to get from API-Football
-    const afFixtures = await apiFootballService.getHeadToHead(
-      homeTeam.api_football_id,
-      awayTeam.api_football_id
-    );
+    // Try to get from API-Football (graceful fallback if unavailable)
+    let afFixtures: any[] = [];
+    try {
+      afFixtures = await apiFootballService.getHeadToHead(
+        homeTeam.api_football_id,
+        awayTeam.api_football_id
+      );
+    } catch {
+      // API-Football not available, return empty H2H
+    }
 
     const h2hFixtures: FixtureWithTeams[] = afFixtures.map(af => ({
       id: '',
